@@ -1,0 +1,13 @@
+node_modules
+
+typescript
+tsconfig.json
+
+.vscode
+
+files/pdf/*
+files/txt-output/*
+files/end-output/*
+files/test-content/input/*
+files/test-content/output/*
+files/test-content/end-output/*
