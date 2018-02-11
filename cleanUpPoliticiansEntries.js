@@ -11,8 +11,8 @@ module.exports = function cleanUpPoliticiansEntries(rawPoliticiansArray) {
     .map(function joinData(politician) {
       return [politician.trim()];
     })
-    .filter(function deleteEmptyElements(element){
+    .filter(function deleteEmptyElements(element) {
       return element[0].length > 0
     });
-    return cleanedArray
+  return cleanedArray
 };

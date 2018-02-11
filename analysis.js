@@ -1,4 +1,4 @@
-var fs = require('fs-extra');
+const fs = require('fs-extra');
 const argv = require('yargs').argv;
 
 const convertToText = require('./convertToText');
@@ -82,4 +82,3 @@ Promise.all(filesPromises)
     console.log(error);
     process.exit(1);
   });
-  

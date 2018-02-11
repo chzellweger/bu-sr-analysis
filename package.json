@@ -13,6 +13,7 @@
   "license": "ISC",
   "dependencies": {
     "csv-write-stream": "^2.0.0",
+    "eslint": "^4.17.0",
     "eyes": "^0.1.8",
     "fs-extra": "^5.0.0",
     "pdf-extract": "^1.0.11",
@@ -21,6 +22,11 @@
     "yargs": "^11.0.0"
   },
   "devDependencies": {
-    "@types/node": "^9.4.0"
+    "@types/node": "^9.4.0",
+    "eslint-config-standard": "^11.0.0-beta.0",
+    "eslint-plugin-import": "^2.8.0",
+    "eslint-plugin-node": "^6.0.0",
+    "eslint-plugin-promise": "^3.6.0",
+    "eslint-plugin-standard": "^3.0.1"
   }
 }

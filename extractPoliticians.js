@@ -1,4 +1,4 @@
-var inspect = require('eyes').inspector({ maxLength: 500 });
+// var inspect = require('eyes').inspector({ maxLength: 500 });
 var util = require('util');
 var fs = require('fs');
 var getPoliticians = require('./regExpPoliticians');
@@ -22,17 +22,26 @@ function extractPoliticians(filePath, outputPath) {
         return text;
       })
       .then((text) => {
-        const date = text.match(patterns.date) && 
-          text.match(patterns.date)[1].trim() || ['no date', 'no date'];
-        
+        const date =
+          (text.match(patterns.date) && text.match(patterns.date)[1].trim()) ||
+          'no date';
+
         const rawPresentPoliticians = getPoliticians(text, patterns.present);
         const rawVacantPoliticians = getPoliticians(text, patterns.vacant);
 
-        const presentPoliticians = cleanUp(rawPresentPoliticians).map(el => [date, ...el, 'present']);
-        const vacantPoliticians = cleanUp(rawVacantPoliticians).map(el => [date, ...el, 'vacant']);
-        
+        const presentPoliticians = cleanUp(rawPresentPoliticians).map((el) => [
+          date,
+          ...el,
+          'present'
+        ]);
+        const vacantPoliticians = cleanUp(rawVacantPoliticians).map((el) => [
+          date,
+          ...el,
+          'vacant'
+        ]);
+
         const session = [...presentPoliticians, ...vacantPoliticians];
-        
+
         console.log('success!');
         console.log('\n');
 

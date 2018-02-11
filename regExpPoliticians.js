@@ -1,5 +1,4 @@
 function regExpPoliticians(text, regExp) {
-  const pattern = regExp;
   let result = [];
   let matched;
 

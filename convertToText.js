@@ -7,13 +7,13 @@ function readPdf(filePath, outputPath) {
   return new Promise((resolve, reject) => {
     var reader = new Reader();
     var output = fs.createWriteStream(outputPath, { encoding: 'utf8' });
-  
-    reader.parseFileItems(filePath, function(err, item) {
-      if (err) {
+
+    reader.parseFileItems(filePath, function(error, item) {
+      if (error) {
         console.log('error parsing file to txt', error)
-        reject(err);
+        reject(error);
       }
-      
+
       if (!item) {
         output.end()
         output.on('finish', () => {
@@ -21,9 +21,9 @@ function readPdf(filePath, outputPath) {
           resolve();
         })
       }
-      
+
       if (item.page) { console.log(`parsing page ${item.page}...`) }
-      
+
       if (item.text) {
         output.write(item.text + '\n');
       }
