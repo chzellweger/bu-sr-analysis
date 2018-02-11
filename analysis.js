@@ -1,38 +1,38 @@
 var fs = require('fs-extra');
 const argv = require('yargs').argv;
 
-const readPdf = require('./convertToText');
+const convertToText = require('./convertToText');
 const extractPoliticians = require('./extractPoliticians');
 const writeToCsv = require('./writeToCsv');
 
 // setup
-const testMode = argv.test;
-const input = argv.input;
-const output = argv.output;
+const isTestRun = argv.test;
+const inputFolder = argv.input;
+const outputFolder = argv.output;
 
 const testConfig = {
-  input: './files/test-content/input/',
-  output: './files/test-content/output/',
-  endOutput: './files/test-content/end-output/'
+  inputFolder: './files/test-content/input/',
+  outputFolder: './files/test-content/output/',
+  endOutputFolder: './files/test-content/end-output/'
 };
 
 const prodConfig = {
-  input: input || './files/pdf/',
-  output: './files/txt-output/',
-  endOutput: output || './files/end-output/'
+  inputFolder: inputFolder || './files/pdf/',
+  outputFolder: './files/txt-output/',
+  endOutputFolder: outputFolder || './files/end-output/'
 };
 
-const config = testMode ? testConfig : prodConfig;
+const config = isTestRun ? testConfig : prodConfig;
 // end setup
 
 // read our pdf-files
 const pdfFiles = fs
-  .readdirSync(config.input)
+  .readdirSync(config.inputFolder)
   .filter((file) => file.includes('pdf'));
 
 // read our already parsed files
 const textFiles = fs
-  .readdirSync(config.output)
+  .readdirSync(config.outputFolder)
   .filter((file) => file.includes('txt'));
 
 // gather new files to parse
@@ -42,18 +42,17 @@ const newPdfFiles = pdfFiles.filter((file) => {
   }
 });
 
-console.log(`parsing files in ${testMode ? 'TEST' : 'PARSE'}-MODE`);
+console.log(`parsing files in ${isTestRun ? 'TEST' : 'PARSE'}-MODE`);
 console.log('amount of files to parse: ', newPdfFiles.length);
 // end setup
 
 // parse pdfs async
 const filesPromises = newPdfFiles.map((file) => {
-  const pdfPromise = readPdf(
-    config.input + file,
-    config.output + file + '.txt'
+  const pdfsAsTextPromises = convertToText(
+    config.inputFolder + file,
+    config.outputFolder + file + '.txt'
   );
-  // throw new Error('test error')
-  return pdfPromise;
+  return pdfsAsTextPromises;
 });
 // end parsing
 
@@ -63,24 +62,24 @@ Promise.all(filesPromises)
   .then(() => {
     // peak into output folder...
     const files = fs
-      .readdirSync(config.output)
+      .readdirSync(config.outputFolder)
       .filter((f) => f.includes('.txt'));
     console.log('files to analyse: ', files.length);
     console.log('\n');
 
     // analyse files with regex
     return files.map((file) => {
-      return extractPoliticians(config.output + file);
+      return extractPoliticians(config.outputFolder + file);
     });
   })
   // when analysed write to disc
   .then((promises) => {
-    return Promise.all(promises)
-      .then((valArray) => {
-        return writeToCsv(valArray, config.endOutput);
-      })
+    return Promise.all(promises).then((valArray) => {
+      return writeToCsv(valArray, config.endOutputFolder);
+    });
   })
   .catch((error) => {
     console.log(error);
     process.exit(1);
   });
+  
