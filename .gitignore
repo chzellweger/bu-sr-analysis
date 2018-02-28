@@ -11,3 +11,5 @@ files/end-output/*
 files/test-content/input/*
 files/test-content/output/*
 files/test-content/end-output/*
+
+!*.gitkeep
