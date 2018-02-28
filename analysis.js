@@ -41,9 +41,12 @@ const newPdfFiles = pdfFiles.filter((file) => {
     return file;
   }
 });
-
-console.log(`parsing files in ${isTestRun ? 'TEST' : 'PARSE'}-MODE`);
-console.log('amount of files to parse: ', newPdfFiles.length);
+console.log(`
+-------------------------------------------------------
+parsing files in ${isTestRun ? 'TEST' : 'PARSE'}-MODE
+amount of files to parse: ${newPdfFiles.length}
+-------------------------------------------------------
+`);
 // end setup
 
 // parse pdfs async
@@ -64,7 +67,11 @@ Promise.all(filesPromises)
     const files = fs
       .readdirSync(config.outputFolder)
       .filter((f) => f.includes('.txt'));
-    console.log('files to analyse: ', files.length);
+    console.log(`
+----------------------------------
+analyzing files in ${isTestRun ? 'TEST' : 'PARSE'}-MODE
+files to analyze: ${files.length}
+----------------------------------`);
     console.log('\n');
 
     // analyse files with regex
