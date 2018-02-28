@@ -1,10 +1,9 @@
 # Parse Stadtrats-Präsenz
 
-Reads PDF-proctocols (input) of the Bernese city council. Extracts names of present and vacants politicians and writes the result to csv (output).
+Reads [PDF-proctocols (INPUT) of the Bernese city council](https://ris.bern.ch/Sitzungen.aspx). Extracts names of present and vacants politicians and writes the result to csv (OUTPUT).
 
-The main work ist done in ```extractPoliticians.js```. Here you define your regex-patterns to look for in the parsed pdfs and the format of your output to the csv-writer. If you change the current output-format, you will have to change things in ``` writeToCsv.js``` too to get a valid csv.
-
-You can find valid source documents [on the website of the bernese city council](https://ris.bern.ch/Sitzungen.aspx).
+The main work ist done in 
+```extractPoliticians.js```. Here you define your regex-patterns to look for in the parsed pdfs and the format of your output to the csv-writer. If you change the current output-format, you will have to change things in ``` writeToCsv.js``` too to get a valid csv.
 
 ## Usage
 
