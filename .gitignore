@@ -13,3 +13,4 @@ files/test-content/output/*
 files/test-content/end-output/*
 
 !*.gitkeep
+!files/test-content/input/Stadtratsprotokoll_Nr._05_vom_02.03.2017_-_Genehmigt_06.04.2017_genehmigt_.pdf
